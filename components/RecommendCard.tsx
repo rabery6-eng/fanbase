@@ -12,7 +12,7 @@ export function RecommendCard({
   recommendation,
   onSelect,
 }: RecommendCardProps) {
-  const { team, strength, description } = recommendation;
+  const { strength, description } = recommendation;
 
   return (
     <motion.button
@@ -23,14 +23,7 @@ export function RecommendCard({
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 420, damping: 30 }}
     >
-      <div className="flex items-center">
-        <span
-          className="h-3 w-3 rounded-full shadow-[0_0_0_6px_rgba(15,23,42,0.04)]"
-          style={{ backgroundColor: team.color }}
-          aria-hidden="true"
-        />
-      </div>
-      <p className="mt-4 text-xl font-black leading-tight tracking-[-0.045em] text-slate-950">
+      <p className="text-xl font-black leading-tight tracking-[-0.045em] text-slate-950">
         {strength}
       </p>
       <p className="mt-3 text-sm font-medium leading-6 text-slate-500">
