@@ -9,37 +9,36 @@ export type TeamRecommendation = {
 const recommendationCopy: Record<Team["id"], Omit<TeamRecommendation, "team">> =
   {
     "lg-twins": {
-      strength: "세련된 도시 야구와 탄탄한 전력",
-      description:
-        "강한 전력과 큰 팬덤, 잠실의 분위기를 함께 즐기고 싶다면.",
+      strength: "깔끔한 운영과 균형 잡힌 전력",
+      description: "공수 밸런스가 좋고 안정적인 경기를 즐기고 싶다면.",
     },
     "hanwha-eagles": {
       strength: "뜨거운 낭만과 폭발적인 응원",
       description: "오래 기다린 만큼 더 크게 터지는 감정을 좋아한다면.",
     },
     "kia-tigers": {
-      strength: "전통의 강호와 우승 DNA",
-      description: "역사와 자부심, 강한 팬심을 함께 느끼고 싶다면.",
+      strength: "큰 경기의 긴장감과 강한 승부욕",
+      description: "중요한 순간 더 뜨거워지는 야구에 끌린다면.",
     },
     "lotte-giants": {
-      strength: "야구장 전체를 흔드는 응원 문화",
-      description: "승패를 넘어 야구장 분위기 자체를 즐기고 싶다면.",
+      strength: "함께 뛰는 듯한 몰입감 있는 응원",
+      description: "승패를 넘어 경기의 에너지 자체를 즐기고 싶다면.",
     },
     "doosan-bears": {
       strength: "끈질긴 경기력과 승부사 기질",
-      description: "쉽게 무너지지 않는 팀 컬러를 좋아한다면.",
+      description: "끝까지 흐름을 놓치지 않는 경기를 좋아한다면.",
     },
     "samsung-lions": {
-      strength: "왕조의 기억과 푸른 전통",
-      description: "찬란했던 역사와 새로운 도약을 함께 보고 싶다면.",
+      strength: "차분한 자부심과 다시 올라서는 힘",
+      description: "흔들림 속에서도 다음 장면을 기대하는 마음이 좋다면.",
     },
     "ssg-landers": {
-      strength: "화끈한 공격과 스타성",
-      description: "강한 타선과 임팩트 있는 야구를 좋아한다면.",
+      strength: "화끈한 공격과 선명한 존재감",
+      description: "한 번에 분위기를 바꾸는 임팩트 있는 야구를 좋아한다면.",
     },
     "nc-dinos": {
-      strength: "젊고 역동적인 신흥 강자",
-      description: "새로운 흐름과 빠른 성장을 응원하고 싶다면.",
+      strength: "빠른 템포와 역동적인 성장세",
+      description: "새로운 흐름과 과감한 변화를 응원하고 싶다면.",
     },
     "kt-wiz": {
       strength: "조용하지만 강한 실속 야구",
