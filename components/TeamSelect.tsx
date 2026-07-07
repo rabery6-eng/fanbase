@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { OnboardingLayout } from "@/components/OnboardingLayout";
+import { shuffleItems } from "@/lib/shuffle";
 import type { Team } from "@/lib/teams";
 import { teams } from "@/lib/teams";
 import { TeamCard } from "./TeamCard";
@@ -12,6 +14,12 @@ type TeamSelectProps = {
 };
 
 export function TeamSelect({ onSelectTeam, onRecommend }: TeamSelectProps) {
+  const [orderedTeams, setOrderedTeams] = useState<Team[]>(teams);
+
+  useEffect(() => {
+    setOrderedTeams(shuffleItems(teams));
+  }, []);
+
   return (
     <OnboardingLayout
       title="당신의 팀을 선택하세요"
@@ -41,7 +49,7 @@ export function TeamSelect({ onSelectTeam, onRecommend }: TeamSelectProps) {
         }}
         className="grid grid-cols-2 gap-3"
       >
-        {teams.map((team) => (
+        {orderedTeams.map((team) => (
           <motion.div
             key={team.id}
             variants={{

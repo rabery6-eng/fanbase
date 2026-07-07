@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { OnboardingLayout } from "@/components/OnboardingLayout";
 import { RecommendCard } from "@/components/RecommendCard";
+import { shuffleItems } from "@/lib/shuffle";
 import {
   teamRecommendations,
   type TeamRecommendation,
@@ -15,6 +17,13 @@ type TeamRecommendProps = {
 };
 
 export function TeamRecommend({ onBack, onSelectTeam }: TeamRecommendProps) {
+  const [orderedRecommendations, setOrderedRecommendations] =
+    useState<TeamRecommendation[]>(teamRecommendations);
+
+  useEffect(() => {
+    setOrderedRecommendations(shuffleItems(teamRecommendations));
+  }, []);
+
   const handleSelect = (recommendation: TeamRecommendation) => {
     onSelectTeam(recommendation.team);
   };
@@ -46,7 +55,7 @@ export function TeamRecommend({ onBack, onSelectTeam }: TeamRecommendProps) {
         }}
         className="space-y-3"
       >
-        {teamRecommendations.map((recommendation) => (
+        {orderedRecommendations.map((recommendation) => (
           <motion.div
             key={recommendation.team.id}
             variants={{
