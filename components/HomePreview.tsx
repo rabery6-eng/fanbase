@@ -47,8 +47,8 @@ const homeData: HomeData = {
   todayGame: {
     status: "오늘 경기 예정",
     time: "18:30",
-    opponent: "vs 라이벌 매치",
-    stadium: "잠실 야구장",
+    opponent: "vs 오늘의 상대",
+    stadium: "홈 구장",
     note: "선발 라인업은 경기 1시간 전 업데이트됩니다.",
   },
   briefing: {
@@ -74,8 +74,8 @@ const homeData: HomeData = {
   ],
   nextGame: {
     date: "내일 18:30",
-    opponent: "원정 3연전 2차전",
-    stadium: "고척 스카이돔",
+    opponent: "정규 시즌 다음 경기",
+    stadium: "원정 경기",
   },
 };
 
