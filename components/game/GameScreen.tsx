@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { BottomNav } from "@/components/home/BottomNav";
-import { createGameData } from "@/lib/games";
+import { createGameData, type Game } from "@/lib/games";
 import type { Team } from "@/lib/teams";
 import { FeaturedGameCard } from "./FeaturedGameCard";
 import { GameCard } from "./GameCard";
@@ -11,9 +11,10 @@ import { GameHeader } from "./GameHeader";
 type GameScreenProps = {
   team: Team;
   onNavigate: (screen: "home" | "game") => void;
+  onSelectGame: (game: Game) => void;
 };
 
-export function GameScreen({ team, onNavigate }: GameScreenProps) {
+export function GameScreen({ team, onNavigate, onSelectGame }: GameScreenProps) {
   const games = createGameData(team);
   const featuredGame = games.find(
     (game) => game.homeTeam.id === team.id || game.awayTeam.id === team.id,
@@ -54,7 +55,11 @@ export function GameScreen({ team, onNavigate }: GameScreenProps) {
             }}
             className="sm:col-span-2 lg:col-span-3"
           >
-            <FeaturedGameCard game={featuredGame} team={team} />
+            <FeaturedGameCard
+              game={featuredGame}
+              team={team}
+              onSelect={onSelectGame}
+            />
           </motion.div>
 
           <div className="sm:col-span-2 lg:col-span-3">
@@ -71,7 +76,7 @@ export function GameScreen({ team, onNavigate }: GameScreenProps) {
                 show: { opacity: 1, y: 0 },
               }}
             >
-              <GameCard game={game} />
+              <GameCard game={game} onSelect={onSelectGame} />
             </motion.div>
           ))}
         </motion.section>

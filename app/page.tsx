@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { GameDetailScreen } from "@/components/game-detail/GameDetailScreen";
 import { GameScreen } from "@/components/game/GameScreen";
 import { HomePreview } from "@/components/HomePreview";
 import { RecommendConfirm } from "@/components/RecommendConfirm";
 import { TeamRecommend } from "@/components/TeamRecommend";
 import { TeamSelect } from "@/components/TeamSelect";
 import { TeamTransition } from "@/components/TeamTransition";
+import type { Game } from "@/lib/games";
 import type { Team } from "@/lib/teams";
 
 type Screen =
@@ -16,11 +18,13 @@ type Screen =
   | "recommend-confirm"
   | "transition"
   | "home"
-  | "game";
+  | "game"
+  | "game-detail";
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>("team-select");
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
 
   const handleSelectTeam = (team: Team) => {
     setSelectedTeam(team);
@@ -71,7 +75,23 @@ export default function Page() {
       )}
 
       {screen === "game" && selectedTeam && (
-        <GameScreen team={selectedTeam} onNavigate={setScreen} />
+        <GameScreen
+          team={selectedTeam}
+          onNavigate={setScreen}
+          onSelectGame={(game) => {
+            setSelectedGame(game);
+            setScreen("game-detail");
+          }}
+        />
+      )}
+
+      {screen === "game-detail" && selectedTeam && selectedGame && (
+        <GameDetailScreen
+          game={selectedGame}
+          team={selectedTeam}
+          onBack={() => setScreen("game")}
+          onNavigate={setScreen}
+        />
       )}
 
       <AnimatePresence>

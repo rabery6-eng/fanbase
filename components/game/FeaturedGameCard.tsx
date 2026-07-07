@@ -8,11 +8,16 @@ import { MatchupInfo } from "./MatchupInfo";
 type FeaturedGameCardProps = {
   game: Game;
   team: Team;
+  onSelect?: (game: Game) => void;
 };
 
-export function FeaturedGameCard({ game, team }: FeaturedGameCardProps) {
+export function FeaturedGameCard({ game, team, onSelect }: FeaturedGameCardProps) {
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft">
+    <button
+      type="button"
+      onClick={() => onSelect?.(game)}
+      className="block w-full overflow-hidden rounded-[2rem] border border-slate-200 bg-white text-left shadow-soft outline-none transition hover:border-slate-300 focus-visible:ring-4 focus-visible:ring-slate-200"
+    >
       <div
         className="h-2"
         style={{ backgroundColor: team.color }}
@@ -47,7 +52,7 @@ export function FeaturedGameCard({ game, team }: FeaturedGameCardProps) {
         <MatchupInfo game={game} team={team} />
         <GameActionButtons team={team} />
       </div>
-    </article>
+    </button>
   );
 }
 

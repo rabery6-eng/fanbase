@@ -4,11 +4,16 @@ import type { Game } from "@/lib/games";
 
 type GameCardProps = {
   game: Game;
+  onSelect?: (game: Game) => void;
 };
 
-export function GameCard({ game }: GameCardProps) {
+export function GameCard({ game, onSelect }: GameCardProps) {
   return (
-    <article className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+    <button
+      type="button"
+      onClick={() => onSelect?.(game)}
+      className="block w-full rounded-3xl border border-slate-200 bg-white p-4 text-left shadow-sm outline-none transition hover:border-slate-300 focus-visible:ring-4 focus-visible:ring-slate-200"
+    >
       <div className="flex items-center justify-between gap-3">
         <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-500">
           {game.status}
@@ -28,7 +33,7 @@ export function GameCard({ game }: GameCardProps) {
           {game.awayPitcher} / {game.homePitcher}
         </span>
       </div>
-    </article>
+    </button>
   );
 }
 
