@@ -3,15 +3,21 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { HomePreview } from "@/components/HomePreview";
-import { RecommendTeamPlaceholder } from "@/components/RecommendTeamPlaceholder";
+import { RecommendConfirm } from "@/components/RecommendConfirm";
+import { TeamRecommend } from "@/components/TeamRecommend";
 import { TeamSelect } from "@/components/TeamSelect";
 import { TeamTransition } from "@/components/TeamTransition";
 import type { Team } from "@/lib/teams";
 
-type Screen = "select" | "transition" | "home" | "recommend";
+type Screen =
+  | "team-select"
+  | "recommend"
+  | "recommend-confirm"
+  | "transition"
+  | "home";
 
 export default function Page() {
-  const [screen, setScreen] = useState<Screen>("select");
+  const [screen, setScreen] = useState<Screen>("team-select");
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   const handleSelectTeam = (team: Team) => {
@@ -33,7 +39,7 @@ export default function Page() {
 
   return (
     <>
-      {screen === "select" && (
+      {screen === "team-select" && (
         <TeamSelect
           onSelectTeam={handleSelectTeam}
           onRecommend={() => setScreen("recommend")}
@@ -41,7 +47,21 @@ export default function Page() {
       )}
 
       {screen === "recommend" && (
-        <RecommendTeamPlaceholder onBack={() => setScreen("select")} />
+        <TeamRecommend
+          onBack={() => setScreen("team-select")}
+          onSelectTeam={(team) => {
+            setSelectedTeam(team);
+            setScreen("recommend-confirm");
+          }}
+        />
+      )}
+
+      {screen === "recommend-confirm" && selectedTeam && (
+        <RecommendConfirm
+          team={selectedTeam}
+          onConfirm={() => setScreen("transition")}
+          onBack={() => setScreen("recommend")}
+        />
       )}
 
       {screen === "home" && selectedTeam && <HomePreview team={selectedTeam} />}

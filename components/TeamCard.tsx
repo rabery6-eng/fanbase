@@ -13,19 +13,19 @@ export function TeamCard({ team, onSelect }: TeamCardProps) {
     <motion.button
       type="button"
       onClick={() => onSelect(team)}
-      className="group flex min-h-24 items-center justify-between rounded-2xl border border-slate-200/80 bg-white px-5 text-left shadow-sm outline-none transition-colors hover:border-slate-300 focus-visible:ring-4 focus-visible:ring-slate-200"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
+      className="group relative flex min-h-[132px] overflow-hidden rounded-[1.6rem] p-4 text-left shadow-[0_18px_40px_rgba(15,23,42,0.12)] outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
+      style={{ backgroundColor: team.color }}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.965 }}
       transition={{ type: "spring", stiffness: 420, damping: 30 }}
     >
-      <span className="text-[15px] font-semibold tracking-[-0.01em] text-slate-950">
+      <span className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/12 transition-transform group-hover:scale-110" />
+      <span className="absolute bottom-3 right-3 h-10 w-10 rounded-full border border-white/16 bg-white/10" />
+      <span
+        className="relative z-10 mt-auto text-[18px] font-black leading-tight tracking-[-0.04em] text-white"
+      >
         {team.name}
       </span>
-      <span
-        className="h-3.5 w-3.5 rounded-full shadow-[0_0_0_6px_rgba(15,23,42,0.04)] transition-transform group-hover:scale-110"
-        style={{ backgroundColor: team.color }}
-        aria-hidden="true"
-      />
     </motion.button>
   );
 }
