@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { GameDetailScreen } from "@/components/game-detail/GameDetailScreen";
 import { GameScreen } from "@/components/game/GameScreen";
 import { HomePreview } from "@/components/HomePreview";
+import { MyScreen } from "@/components/my/MyScreen";
 import { RecordsScreen } from "@/components/records/RecordsScreen";
 import { RecommendConfirm } from "@/components/RecommendConfirm";
 import { TeamRecommend } from "@/components/TeamRecommend";
@@ -21,7 +22,8 @@ type Screen =
   | "home"
   | "game"
   | "game-detail"
-  | "records";
+  | "records"
+  | "my";
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>("team-select");
@@ -98,6 +100,14 @@ export default function Page() {
 
       {screen === "records" && selectedTeam && (
         <RecordsScreen team={selectedTeam} onNavigate={setScreen} />
+      )}
+
+      {screen === "my" && selectedTeam && (
+        <MyScreen
+          team={selectedTeam}
+          onNavigate={setScreen}
+          onChangeTeam={() => setScreen("team-select")}
+        />
       )}
 
       <AnimatePresence>

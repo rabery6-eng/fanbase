@@ -13,7 +13,7 @@ import { TeamCard } from "./TeamCard";
 
 type RecordsScreenProps = {
   team: Team;
-  onNavigate: (screen: "home" | "game" | "records") => void;
+  onNavigate: (screen: "home" | "game" | "records" | "my") => void;
 };
 
 export function RecordsScreen({ team, onNavigate }: RecordsScreenProps) {
