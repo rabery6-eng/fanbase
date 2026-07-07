@@ -3,8 +3,12 @@
 import type { Team } from "@/lib/teams";
 
 type BottomNavProps = {
+  activeTab: NavLabel;
   team: Team;
+  onTabChange?: (screen: "home" | "game") => void;
 };
+
+type NavLabel = "Home" | "Game" | "Community" | "Records" | "My";
 
 const navItems = [
   { label: "Home", icon: "H" },
@@ -12,19 +16,27 @@ const navItems = [
   { label: "Community", icon: "C" },
   { label: "Records", icon: "R" },
   { label: "My", icon: "M" },
-];
+] satisfies { label: NavLabel; icon: string }[];
 
-export function BottomNav({ team }: BottomNavProps) {
+export function BottomNav({ activeTab, team, onTabChange }: BottomNavProps) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/80 bg-white/88 px-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-2 shadow-[0_-18px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl">
       <div className="mx-auto grid max-w-md grid-cols-5 gap-1 sm:max-w-2xl lg:max-w-4xl">
         {navItems.map((item) => {
-          const isActive = item.label === "Home";
+          const isActive = item.label === activeTab;
+          const targetScreen =
+            item.label === "Home" ? "home" : item.label === "Game" ? "game" : null;
 
           return (
             <button
               key={item.label}
               type="button"
+              aria-label={item.label}
+              onClick={() => {
+                if (targetScreen) {
+                  onTabChange?.(targetScreen);
+                }
+              }}
               className="flex min-h-14 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-semibold text-slate-400 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
               style={isActive ? { color: team.color } : undefined}
             >

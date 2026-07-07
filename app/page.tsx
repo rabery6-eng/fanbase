@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { GameScreen } from "@/components/game/GameScreen";
 import { HomePreview } from "@/components/HomePreview";
 import { RecommendConfirm } from "@/components/RecommendConfirm";
 import { TeamRecommend } from "@/components/TeamRecommend";
@@ -14,7 +15,8 @@ type Screen =
   | "recommend"
   | "recommend-confirm"
   | "transition"
-  | "home";
+  | "home"
+  | "game";
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>("team-select");
@@ -64,7 +66,13 @@ export default function Page() {
         />
       )}
 
-      {screen === "home" && selectedTeam && <HomePreview team={selectedTeam} />}
+      {screen === "home" && selectedTeam && (
+        <HomePreview team={selectedTeam} onNavigate={setScreen} />
+      )}
+
+      {screen === "game" && selectedTeam && (
+        <GameScreen team={selectedTeam} onNavigate={setScreen} />
+      )}
 
       <AnimatePresence>
         {screen === "transition" && selectedTeam && (

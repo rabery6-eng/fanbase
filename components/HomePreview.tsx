@@ -12,6 +12,7 @@ import type { Team } from "@/lib/teams";
 
 type HomePreviewProps = {
   team: Team;
+  onNavigate: (screen: "home" | "game") => void;
 };
 
 export type HomeData = {
@@ -79,7 +80,7 @@ const homeData: HomeData = {
   },
 };
 
-export function HomePreview({ team }: HomePreviewProps) {
+export function HomePreview({ team, onNavigate }: HomePreviewProps) {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
       <div className="mx-auto min-h-screen w-full max-w-md pb-28 sm:max-w-2xl lg:max-w-4xl">
@@ -120,7 +121,7 @@ export function HomePreview({ team }: HomePreviewProps) {
           </CardMotion>
         </motion.section>
       </div>
-      <BottomNav team={team} />
+      <BottomNav activeTab="Home" team={team} onTabChange={onNavigate} />
     </main>
   );
 }
