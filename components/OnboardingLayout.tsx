@@ -29,10 +29,10 @@ export function OnboardingLayout({
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
             {eyebrow}
           </p>
-          <h1 className="mx-auto mt-4 max-w-sm text-[42px] font-black leading-[0.98] tracking-[-0.06em] text-slate-950">
+          <h1 className="mx-auto mt-4 max-w-none text-[34px] font-black leading-[1.08] tracking-[-0.055em] text-slate-950 sm:text-[40px]">
             {title}
           </h1>
-          <p className="mx-auto mt-4 max-w-[19rem] text-[15px] font-medium leading-6 text-slate-500">
+          <p className="mx-auto mt-4 max-w-[23rem] break-keep text-[15px] font-medium leading-6 text-slate-500">
             {description}
           </p>
         </motion.header>

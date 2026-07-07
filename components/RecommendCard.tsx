@@ -23,13 +23,12 @@ export function RecommendCard({
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 420, damping: 30 }}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <span
           className="h-3 w-3 rounded-full shadow-[0_0_0_6px_rgba(15,23,42,0.04)]"
           style={{ backgroundColor: team.color }}
           aria-hidden="true"
         />
-        <span className="text-xs font-bold text-slate-400">{team.name}</span>
       </div>
       <p className="mt-4 text-xl font-black leading-tight tracking-[-0.045em] text-slate-950">
         {strength}
