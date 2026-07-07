@@ -10,7 +10,7 @@ import { GameHeader } from "./GameHeader";
 
 type GameScreenProps = {
   team: Team;
-  onNavigate: (screen: "home" | "game") => void;
+  onNavigate: (screen: "home" | "game" | "records") => void;
   onSelectGame: (game: Game) => void;
 };
 

@@ -12,7 +12,7 @@ import type { Team } from "@/lib/teams";
 
 type HomePreviewProps = {
   team: Team;
-  onNavigate: (screen: "home" | "game") => void;
+  onNavigate: (screen: "home" | "game" | "records") => void;
 };
 
 export type HomeData = {
