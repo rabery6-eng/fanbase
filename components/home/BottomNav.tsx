@@ -5,7 +5,7 @@ import type { Team } from "@/lib/teams";
 type BottomNavProps = {
   activeTab: NavLabel;
   team: Team;
-  onTabChange?: (screen: "home" | "game" | "records" | "my") => void;
+  onTabChange?: (screen: "home" | "game" | "community" | "records" | "my") => void;
 };
 
 type NavLabel = "Home" | "Game" | "Community" | "Records" | "My";
@@ -29,6 +29,8 @@ export function BottomNav({ activeTab, team, onTabChange }: BottomNavProps) {
               ? "home"
               : item.label === "Game"
                 ? "game"
+                : item.label === "Community"
+                  ? "community"
                 : item.label === "Records"
                   ? "records"
                   : item.label === "My"

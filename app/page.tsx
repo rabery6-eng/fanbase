@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { CommunityScreen } from "@/components/community/CommunityScreen";
 import { GameDetailScreen } from "@/components/game-detail/GameDetailScreen";
 import { GameScreen } from "@/components/game/GameScreen";
 import { HomePreview } from "@/components/HomePreview";
@@ -22,6 +23,7 @@ type Screen =
   | "home"
   | "game"
   | "game-detail"
+  | "community"
   | "records"
   | "my";
 
@@ -96,6 +98,10 @@ export default function Page() {
           onBack={() => setScreen("game")}
           onNavigate={setScreen}
         />
+      )}
+
+      {screen === "community" && selectedTeam && (
+        <CommunityScreen team={selectedTeam} onNavigate={setScreen} />
       )}
 
       {screen === "records" && selectedTeam && (

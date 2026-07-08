@@ -13,7 +13,9 @@ import { TeamCard } from "./TeamCard";
 
 type RecordsScreenProps = {
   team: Team;
-  onNavigate: (screen: "home" | "game" | "records" | "my") => void;
+  onNavigate: (
+    screen: "home" | "game" | "community" | "records" | "my",
+  ) => void;
 };
 
 export function RecordsScreen({ team, onNavigate }: RecordsScreenProps) {

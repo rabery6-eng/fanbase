@@ -16,7 +16,9 @@ type GameDetailScreenProps = {
   game: Game;
   team: Team;
   onBack: () => void;
-  onNavigate: (screen: "home" | "game" | "records" | "my") => void;
+  onNavigate: (
+    screen: "home" | "game" | "community" | "records" | "my",
+  ) => void;
 };
 
 export function GameDetailScreen({
