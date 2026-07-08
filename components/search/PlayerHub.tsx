@@ -19,9 +19,16 @@ type PlayerHubProps = {
   onNavigate: (
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
+  onOpenTeam: (team: Team) => void;
 };
 
-export function PlayerHub({ player, team, onBack, onNavigate }: PlayerHubProps) {
+export function PlayerHub({
+  player,
+  team,
+  onBack,
+  onNavigate,
+  onOpenTeam,
+}: PlayerHubProps) {
   const [following, setFollowing] = useState(false);
 
   return (
@@ -66,6 +73,13 @@ export function PlayerHub({ player, team, onBack, onNavigate }: PlayerHubProps) 
                   <p className="mt-2 text-sm font-bold text-slate-500">
                     {player.team.name} · {player.position}
                   </p>
+                  <button
+                    type="button"
+                    onClick={() => onOpenTeam(player.team)}
+                    className="mt-3 rounded-full bg-slate-100 px-3 py-2 text-xs font-black text-slate-600"
+                  >
+                    팀 허브 보기
+                  </button>
                 </div>
               </div>
               <div className="mt-5 grid grid-cols-3 gap-2">

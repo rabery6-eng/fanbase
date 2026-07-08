@@ -24,12 +24,14 @@ type CommunityScreenProps = {
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
   onOpenPlayer: (player: PlayerRecord) => void;
+  onOpenTeam: (team: Team) => void;
 };
 
 export function CommunityScreen({
   team,
   onNavigate,
   onOpenPlayer,
+  onOpenTeam,
 }: CommunityScreenProps) {
   const [activeTab, setActiveTab] = useState<CommunityTab>("추천");
   const [posts, setPosts] = useState<CommunityPost[]>(initialCommunityPosts);
@@ -102,6 +104,7 @@ export function CommunityScreen({
               posts={visiblePosts}
               player={playerRecords[0]}
               onOpenPlayer={onOpenPlayer}
+              onOpenTeam={onOpenTeam}
             />
           )}
 
@@ -116,6 +119,7 @@ export function CommunityScreen({
                   post={post}
                   player={playerRecords[0]}
                   onOpenPlayer={onOpenPlayer}
+                  onOpenTeam={onOpenTeam}
                 />
               </motion.div>
             ))}

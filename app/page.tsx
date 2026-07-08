@@ -14,6 +14,7 @@ import { SearchScreen } from "@/components/search/SearchScreen";
 import { TeamRecommend } from "@/components/TeamRecommend";
 import { TeamSelect } from "@/components/TeamSelect";
 import { TeamTransition } from "@/components/TeamTransition";
+import { TeamHub } from "@/components/team-hub/TeamHub";
 import type { Game } from "@/lib/games";
 import { playerRecords, type PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
@@ -30,7 +31,8 @@ type Screen =
   | "records"
   | "my"
   | "search"
-  | "player-hub";
+  | "player-hub"
+  | "team-hub";
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>("team-select");
@@ -41,6 +43,11 @@ export default function Page() {
   const openPlayerHub = (player: PlayerRecord = playerRecords[0]) => {
     setSelectedPlayer(player);
     setScreen("player-hub");
+  };
+
+  const openTeamHub = (team: Team) => {
+    setSelectedTeam(team);
+    setScreen("team-hub");
   };
 
   const handleSelectTeam = (team: Team) => {
@@ -92,6 +99,7 @@ export default function Page() {
           team={selectedTeam}
           onNavigate={setScreen}
           onOpenSearch={() => setScreen("search")}
+          onOpenTeam={() => openTeamHub(selectedTeam)}
         />
       )}
 
@@ -122,6 +130,7 @@ export default function Page() {
           team={selectedTeam}
           onNavigate={setScreen}
           onOpenPlayer={openPlayerHub}
+          onOpenTeam={openTeamHub}
         />
       )}
 
@@ -130,6 +139,7 @@ export default function Page() {
           team={selectedTeam}
           onNavigate={setScreen}
           onOpenPlayer={openPlayerHub}
+          onOpenTeam={openTeamHub}
         />
       )}
 
@@ -146,6 +156,7 @@ export default function Page() {
           team={selectedTeam}
           onBack={() => setScreen("home")}
           onOpenPlayer={openPlayerHub}
+          onOpenTeam={openTeamHub}
         />
       )}
 
@@ -155,6 +166,16 @@ export default function Page() {
           team={selectedTeam}
           onBack={() => setScreen("search")}
           onNavigate={setScreen}
+          onOpenTeam={openTeamHub}
+        />
+      )}
+
+      {screen === "team-hub" && selectedTeam && (
+        <TeamHub
+          team={selectedTeam}
+          onBack={() => setScreen("home")}
+          onNavigate={setScreen}
+          onOpenPlayer={openPlayerHub}
         />
       )}
 

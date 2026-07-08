@@ -4,11 +4,16 @@ import type { TeamRecord } from "@/lib/records";
 
 type TeamCardProps = {
   record: TeamRecord;
+  onSelect?: (teamId: string) => void;
 };
 
-export function TeamCard({ record }: TeamCardProps) {
+export function TeamCard({ record, onSelect }: TeamCardProps) {
   return (
-    <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+    <button
+      type="button"
+      onClick={() => onSelect?.(record.team.id)}
+      className="block w-full overflow-hidden rounded-3xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
+    >
       <div
         className="h-2"
         style={{ backgroundColor: record.team.color }}
@@ -66,7 +71,7 @@ export function TeamCard({ record }: TeamCardProps) {
           </div>
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 

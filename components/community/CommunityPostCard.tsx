@@ -2,27 +2,32 @@
 
 import type { CommunityPost } from "@/lib/community";
 import type { PlayerRecord } from "@/lib/records";
+import type { Team } from "@/lib/teams";
 
 type CommunityPostCardProps = {
   post: CommunityPost;
   player?: PlayerRecord;
   onOpenPlayer?: (player: PlayerRecord) => void;
+  onOpenTeam?: (team: Team) => void;
 };
 
 export function CommunityPostCard({
   post,
   player,
   onOpenPlayer,
+  onOpenTeam,
 }: CommunityPostCardProps) {
   return (
     <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-center gap-2">
-        <span
+        <button
+          type="button"
+          onClick={() => onOpenTeam?.(post.team)}
           className="rounded-full px-3 py-1 text-[11px] font-black text-white"
           style={{ backgroundColor: post.team.color }}
         >
           {post.team.name}
-        </span>
+        </button>
         <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-black text-slate-500">
           {post.category}
         </span>

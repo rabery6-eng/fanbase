@@ -6,6 +6,7 @@ import { BottomNav } from "@/components/home/BottomNav";
 import { playerRecords, teamRecords } from "@/lib/records";
 import type { PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
+import { teams } from "@/lib/teams";
 import { PlayerCard } from "./PlayerCard";
 import { RecordTabs, type RecordTab } from "./RecordTabs";
 import { SearchBar } from "./SearchBar";
@@ -18,12 +19,14 @@ type RecordsScreenProps = {
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
   onOpenPlayer: (player: PlayerRecord) => void;
+  onOpenTeam: (team: Team) => void;
 };
 
 export function RecordsScreen({
   team,
   onNavigate,
   onOpenPlayer,
+  onOpenTeam,
 }: RecordsScreenProps) {
   const [season, setSeason] = useState("2026");
   const [activeTab, setActiveTab] = useState<RecordTab>("players");
@@ -127,7 +130,14 @@ export function RecordsScreen({
           {activeTab === "teams" &&
             filteredTeams.map((record) => (
               <motion.div key={record.id} variants={itemVariants}>
-                <TeamCard record={record} />
+                <TeamCard
+                  record={record}
+                  onSelect={(teamId) => {
+                    const foundTeam =
+                      teams.find((teamItem) => teamItem.id === teamId) ?? team;
+                    onOpenTeam(foundTeam);
+                  }}
+                />
               </motion.div>
             ))}
         </motion.section>

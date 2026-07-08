@@ -6,14 +6,16 @@ type SearchResultCardProps = {
   result: SearchResult;
   color: string;
   onOpenPlayer?: (playerId: string) => void;
+  onOpenTeam?: (teamId: string) => void;
 };
 
 export function SearchResultCard({
   result,
   color,
   onOpenPlayer,
+  onOpenTeam,
 }: SearchResultCardProps) {
-  const clickable = result.type === "선수";
+  const clickable = result.type === "선수" || result.type === "팀";
 
   return (
     <button
@@ -21,6 +23,9 @@ export function SearchResultCard({
       onClick={() => {
         if (result.type === "선수") {
           onOpenPlayer?.(result.playerId);
+        }
+        if (result.type === "팀") {
+          onOpenTeam?.(result.teamId);
         }
       }}
       className="block w-full rounded-3xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
@@ -34,7 +39,9 @@ export function SearchResultCard({
           {result.type}
         </span>
         {clickable && (
-          <span className="text-xs font-black text-slate-400">Player Hub</span>
+          <span className="text-xs font-black text-slate-400">
+            {result.type === "팀" ? "Team Hub" : "Player Hub"}
+          </span>
         )}
       </div>
       <h2 className="mt-4 text-lg font-black tracking-[-0.03em] text-slate-950">

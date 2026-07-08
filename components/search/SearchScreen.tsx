@@ -11,6 +11,7 @@ import {
   trendingSearches,
 } from "@/lib/search-data";
 import type { Team } from "@/lib/teams";
+import { teams } from "@/lib/teams";
 import { RecentSearch } from "./RecentSearch";
 import { SearchBar } from "./SearchBar";
 import { SearchResultCard } from "./SearchResultCard";
@@ -20,9 +21,15 @@ type SearchScreenProps = {
   team: Team;
   onBack: () => void;
   onOpenPlayer: (player: PlayerRecord) => void;
+  onOpenTeam: (team: Team) => void;
 };
 
-export function SearchScreen({ team, onBack, onOpenPlayer }: SearchScreenProps) {
+export function SearchScreen({
+  team,
+  onBack,
+  onOpenPlayer,
+  onOpenTeam,
+}: SearchScreenProps) {
   const [query, setQuery] = useState("");
   const [activeTab, setActiveTab] = useState<SearchTab>("전체");
   const results = useMemo(() => createSearchResults(team), [team]);
@@ -126,6 +133,11 @@ export function SearchScreen({ team, onBack, onOpenPlayer }: SearchScreenProps) 
                     playerRecords.find((record) => record.id === playerId) ??
                     playerRecords[0];
                   onOpenPlayer(player);
+                }}
+                onOpenTeam={(teamId) => {
+                  const foundTeam =
+                    teams.find((teamItem) => teamItem.id === teamId) ?? team;
+                  onOpenTeam(foundTeam);
                 }}
               />
             </motion.div>

@@ -16,7 +16,15 @@ export type SearchResult =
     }
   | {
       id: string;
-      type: "팀" | "경기" | "게시글" | "뉴스";
+      type: "팀";
+      title: string;
+      subtitle: string;
+      description: string;
+      teamId: string;
+    }
+  | {
+      id: string;
+      type: "경기" | "게시글" | "뉴스";
       title: string;
       subtitle: string;
       description: string;
@@ -76,6 +84,7 @@ export function createSearchResults(selectedTeam: Team): SearchResult[] {
       title: team.name,
       subtitle: "KBO 팀",
       description: "팀 기록, 경기, 커뮤니티 반응을 함께 확인하세요.",
+      teamId: team.id,
     })),
     ...games.map<SearchResult>((game) => ({
       id: `game-${game.id}`,
