@@ -8,6 +8,7 @@ import {
   type CommunityPost,
   type CommunityTab,
 } from "@/lib/community";
+import { playerRecords, type PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
 import { CommunityHeader } from "./CommunityHeader";
 import { CommunityPostCard } from "./CommunityPostCard";
@@ -22,9 +23,14 @@ type CommunityScreenProps = {
   onNavigate: (
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
+  onOpenPlayer: (player: PlayerRecord) => void;
 };
 
-export function CommunityScreen({ team, onNavigate }: CommunityScreenProps) {
+export function CommunityScreen({
+  team,
+  onNavigate,
+  onOpenPlayer,
+}: CommunityScreenProps) {
   const [activeTab, setActiveTab] = useState<CommunityTab>("추천");
   const [posts, setPosts] = useState<CommunityPost[]>(initialCommunityPosts);
   const [writing, setWriting] = useState(false);
@@ -92,7 +98,11 @@ export function CommunityScreen({ team, onNavigate }: CommunityScreenProps) {
           )}
 
           {activeTab === "경기" && (
-            <GameDiscussionSection posts={visiblePosts} />
+            <GameDiscussionSection
+              posts={visiblePosts}
+              player={playerRecords[0]}
+              onOpenPlayer={onOpenPlayer}
+            />
           )}
 
           {activeTab === "자유" && <FreeBoardList posts={visiblePosts} />}
@@ -102,7 +112,11 @@ export function CommunityScreen({ team, onNavigate }: CommunityScreenProps) {
             activeTab !== "자유" &&
             visiblePosts.map((post) => (
               <motion.div key={post.id} variants={itemVariants}>
-                <CommunityPostCard post={post} />
+                <CommunityPostCard
+                  post={post}
+                  player={playerRecords[0]}
+                  onOpenPlayer={onOpenPlayer}
+                />
               </motion.div>
             ))}
         </motion.section>

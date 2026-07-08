@@ -6,9 +6,10 @@ import type { Team } from "@/lib/teams";
 type HomeHeaderProps = {
   team: Team;
   todayGame: HomeData["todayGame"];
+  onOpenSearch: () => void;
 };
 
-export function HomeHeader({ team, todayGame }: HomeHeaderProps) {
+export function HomeHeader({ team, todayGame, onOpenSearch }: HomeHeaderProps) {
   return (
     <header className="px-4 pt-5 sm:px-6">
       <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-5 pb-6 pt-5 text-white shadow-soft">
@@ -36,6 +37,14 @@ export function HomeHeader({ team, todayGame }: HomeHeaderProps) {
               {team.name.slice(0, 2)}
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={onOpenSearch}
+            className="mt-5 w-full rounded-2xl border border-white/16 bg-white/14 px-4 py-3 text-left text-sm font-bold text-white/86 backdrop-blur transition hover:bg-white/18 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+          >
+            선수, 팀, 경기, 게시글 검색
+          </button>
 
           <p className="mt-5 text-[15px] font-medium leading-6 text-white/78">
             환영합니다. 당신의 야구는 이곳에서 시작됩니다.

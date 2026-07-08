@@ -9,10 +9,13 @@ import { HomePreview } from "@/components/HomePreview";
 import { MyScreen } from "@/components/my/MyScreen";
 import { RecordsScreen } from "@/components/records/RecordsScreen";
 import { RecommendConfirm } from "@/components/RecommendConfirm";
+import { PlayerHub } from "@/components/search/PlayerHub";
+import { SearchScreen } from "@/components/search/SearchScreen";
 import { TeamRecommend } from "@/components/TeamRecommend";
 import { TeamSelect } from "@/components/TeamSelect";
 import { TeamTransition } from "@/components/TeamTransition";
 import type { Game } from "@/lib/games";
+import { playerRecords, type PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
 
 type Screen =
@@ -25,12 +28,20 @@ type Screen =
   | "game-detail"
   | "community"
   | "records"
-  | "my";
+  | "my"
+  | "search"
+  | "player-hub";
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>("team-select");
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerRecord | null>(null);
+
+  const openPlayerHub = (player: PlayerRecord = playerRecords[0]) => {
+    setSelectedPlayer(player);
+    setScreen("player-hub");
+  };
 
   const handleSelectTeam = (team: Team) => {
     setSelectedTeam(team);
@@ -77,7 +88,11 @@ export default function Page() {
       )}
 
       {screen === "home" && selectedTeam && (
-        <HomePreview team={selectedTeam} onNavigate={setScreen} />
+        <HomePreview
+          team={selectedTeam}
+          onNavigate={setScreen}
+          onOpenSearch={() => setScreen("search")}
+        />
       )}
 
       {screen === "game" && selectedTeam && (
@@ -88,6 +103,7 @@ export default function Page() {
             setSelectedGame(game);
             setScreen("game-detail");
           }}
+          onOpenPlayer={openPlayerHub}
         />
       )}
 
@@ -97,15 +113,24 @@ export default function Page() {
           team={selectedTeam}
           onBack={() => setScreen("game")}
           onNavigate={setScreen}
+          onOpenPlayer={openPlayerHub}
         />
       )}
 
       {screen === "community" && selectedTeam && (
-        <CommunityScreen team={selectedTeam} onNavigate={setScreen} />
+        <CommunityScreen
+          team={selectedTeam}
+          onNavigate={setScreen}
+          onOpenPlayer={openPlayerHub}
+        />
       )}
 
       {screen === "records" && selectedTeam && (
-        <RecordsScreen team={selectedTeam} onNavigate={setScreen} />
+        <RecordsScreen
+          team={selectedTeam}
+          onNavigate={setScreen}
+          onOpenPlayer={openPlayerHub}
+        />
       )}
 
       {screen === "my" && selectedTeam && (
@@ -113,6 +138,23 @@ export default function Page() {
           team={selectedTeam}
           onNavigate={setScreen}
           onChangeTeam={() => setScreen("team-select")}
+        />
+      )}
+
+      {screen === "search" && selectedTeam && (
+        <SearchScreen
+          team={selectedTeam}
+          onBack={() => setScreen("home")}
+          onOpenPlayer={openPlayerHub}
+        />
+      )}
+
+      {screen === "player-hub" && selectedTeam && selectedPlayer && (
+        <PlayerHub
+          player={selectedPlayer}
+          team={selectedTeam}
+          onBack={() => setScreen("search")}
+          onNavigate={setScreen}
         />
       )}
 

@@ -1,12 +1,19 @@
 "use client";
 
 import type { CommunityPost } from "@/lib/community";
+import type { PlayerRecord } from "@/lib/records";
 
 type CommunityPostCardProps = {
   post: CommunityPost;
+  player?: PlayerRecord;
+  onOpenPlayer?: (player: PlayerRecord) => void;
 };
 
-export function CommunityPostCard({ post }: CommunityPostCardProps) {
+export function CommunityPostCard({
+  post,
+  player,
+  onOpenPlayer,
+}: CommunityPostCardProps) {
   return (
     <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-center gap-2">
@@ -39,6 +46,15 @@ export function CommunityPostCard({ post }: CommunityPostCardProps) {
           좋아요 {post.likes} · 댓글 {post.comments}
         </span>
       </div>
+      {player && onOpenPlayer && (
+        <button
+          type="button"
+          onClick={() => onOpenPlayer(player)}
+          className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
+        >
+          관련 선수 보기 · {player.name}
+        </button>
+      )}
     </article>
   );
 }

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { BottomNav } from "@/components/home/BottomNav";
 import { createGameData, type Game } from "@/lib/games";
+import { playerRecords, type PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
 import { FeaturedGameCard } from "./FeaturedGameCard";
 import { GameCard } from "./GameCard";
@@ -14,10 +15,19 @@ type GameScreenProps = {
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
   onSelectGame: (game: Game) => void;
+  onOpenPlayer: (player: PlayerRecord) => void;
 };
 
-export function GameScreen({ team, onNavigate, onSelectGame }: GameScreenProps) {
+export function GameScreen({
+  team,
+  onNavigate,
+  onSelectGame,
+  onOpenPlayer,
+}: GameScreenProps) {
   const games = createGameData(team);
+  const featuredPlayer =
+    playerRecords.find((player) => player.team.id === team.id) ??
+    playerRecords[0];
   const featuredGame = games.find(
     (game) => game.homeTeam.id === team.id || game.awayTeam.id === team.id,
   );
@@ -50,6 +60,27 @@ export function GameScreen({ team, onNavigate, onSelectGame }: GameScreenProps) 
           }}
           className="grid gap-3 px-4 pt-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3"
         >
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0 },
+            }}
+            className="sm:col-span-2 lg:col-span-3"
+          >
+            <button
+              type="button"
+              onClick={() => onOpenPlayer(featuredPlayer)}
+              className="w-full rounded-3xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
+            >
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                Player Hub
+              </p>
+              <p className="mt-2 text-lg font-black tracking-[-0.03em] text-slate-950">
+                오늘 주목할 선수 · {featuredPlayer.name}
+              </p>
+            </button>
+          </motion.div>
+
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 16 },

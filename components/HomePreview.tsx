@@ -15,6 +15,7 @@ type HomePreviewProps = {
   onNavigate: (
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
+  onOpenSearch: () => void;
 };
 
 export type HomeData = {
@@ -82,7 +83,7 @@ const homeData: HomeData = {
   },
 };
 
-export function HomePreview({ team, onNavigate }: HomePreviewProps) {
+export function HomePreview({ team, onNavigate, onOpenSearch }: HomePreviewProps) {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
       <div className="mx-auto min-h-screen w-full max-w-md pb-28 sm:max-w-2xl lg:max-w-4xl">
@@ -91,7 +92,11 @@ export function HomePreview({ team, onNavigate }: HomePreviewProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <HomeHeader team={team} todayGame={homeData.todayGame} />
+          <HomeHeader
+            team={team}
+            todayGame={homeData.todayGame}
+            onOpenSearch={onOpenSearch}
+          />
         </motion.div>
 
         <motion.section

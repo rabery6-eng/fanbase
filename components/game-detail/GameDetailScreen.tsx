@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { BottomNav } from "@/components/home/BottomNav";
 import type { Game } from "@/lib/games";
+import { playerRecords, type PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
 import { AIGameBriefing } from "./AIGameBriefing";
 import { CheerButton } from "./CheerButton";
@@ -19,6 +20,7 @@ type GameDetailScreenProps = {
   onNavigate: (
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
+  onOpenPlayer: (player: PlayerRecord) => void;
 };
 
 export function GameDetailScreen({
@@ -26,9 +28,13 @@ export function GameDetailScreen({
   team,
   onBack,
   onNavigate,
+  onOpenPlayer,
 }: GameDetailScreenProps) {
   const isMyTeamGame =
     game.homeTeam.id === team.id || game.awayTeam.id === team.id;
+  const featuredPlayer =
+    playerRecords.find((player) => player.team.id === team.id) ??
+    playerRecords[0];
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
@@ -43,6 +49,7 @@ export function GameDetailScreen({
             isMyTeamGame={isMyTeamGame}
             team={team}
             onBack={onBack}
+            onOpenPlayer={() => onOpenPlayer(featuredPlayer)}
           />
         </motion.div>
 

@@ -4,11 +4,16 @@ import type { PlayerRecord } from "@/lib/records";
 
 type PlayerCardProps = {
   player: PlayerRecord;
+  onSelect?: (player: PlayerRecord) => void;
 };
 
-export function PlayerCard({ player }: PlayerCardProps) {
+export function PlayerCard({ player, onSelect }: PlayerCardProps) {
   return (
-    <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <button
+      type="button"
+      onClick={() => onSelect?.(player)}
+      className="block w-full rounded-3xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
+    >
       <div className="flex gap-4">
         <div
           className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-lg font-black text-white"
@@ -61,7 +66,7 @@ export function PlayerCard({ player }: PlayerCardProps) {
           ))}
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 

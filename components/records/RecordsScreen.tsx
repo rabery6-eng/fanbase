@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { BottomNav } from "@/components/home/BottomNav";
 import { playerRecords, teamRecords } from "@/lib/records";
+import type { PlayerRecord } from "@/lib/records";
 import type { Team } from "@/lib/teams";
 import { PlayerCard } from "./PlayerCard";
 import { RecordTabs, type RecordTab } from "./RecordTabs";
@@ -16,9 +17,14 @@ type RecordsScreenProps = {
   onNavigate: (
     screen: "home" | "game" | "community" | "records" | "my",
   ) => void;
+  onOpenPlayer: (player: PlayerRecord) => void;
 };
 
-export function RecordsScreen({ team, onNavigate }: RecordsScreenProps) {
+export function RecordsScreen({
+  team,
+  onNavigate,
+  onOpenPlayer,
+}: RecordsScreenProps) {
   const [season, setSeason] = useState("2026");
   const [activeTab, setActiveTab] = useState<RecordTab>("players");
   const [query, setQuery] = useState("");
@@ -114,7 +120,7 @@ export function RecordsScreen({ team, onNavigate }: RecordsScreenProps) {
           {activeTab === "players" &&
             filteredPlayers.map((player) => (
               <motion.div key={player.id} variants={itemVariants}>
-                <PlayerCard player={player} />
+                <PlayerCard player={player} onSelect={onOpenPlayer} />
               </motion.div>
             ))}
 

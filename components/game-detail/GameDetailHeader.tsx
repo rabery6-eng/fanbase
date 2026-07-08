@@ -8,6 +8,7 @@ type GameDetailHeaderProps = {
   team: Team;
   isMyTeamGame: boolean;
   onBack: () => void;
+  onOpenPlayer: () => void;
 };
 
 export function GameDetailHeader({
@@ -15,6 +16,7 @@ export function GameDetailHeader({
   team,
   isMyTeamGame,
   onBack,
+  onOpenPlayer,
 }: GameDetailHeaderProps) {
   return (
     <header className="px-4 pt-5 sm:px-6">
@@ -65,6 +67,13 @@ export function GameDetailHeader({
               선발 투수 · 원정 {game.awayPitcher} / 홈 {game.homePitcher}
             </p>
           </div>
+          <button
+            type="button"
+            onClick={onOpenPlayer}
+            className="mt-4 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
+          >
+            관련 선수 허브 보기
+          </button>
         </div>
       </section>
     </header>
